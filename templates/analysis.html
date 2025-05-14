@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h1>Bankruptcy Analysis</h1>
+    </div>
+    <div class="card-body">
+        {% for ratio_name, stats in analysis_results.items %}
+        <h3>{{ ratio_name }}</h3>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Metric</th>
+                    <th>Bankrupt Companies</th>
+                    <th>Non-Bankrupt Companies</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Average</td>
+                    <td>{{ stats.bankrupt_avg|round(4) }}</td>
+                    <td>{{ stats.non_bankrupt_avg|round(4) }}</td>
+                </tr>
+                <tr>
+                    <td>Standard Deviation</td>
+                    <td>{{ stats.bankrupt_std|round(4) }}</td>
+                    <td>{{ stats.non_bankrupt_std|round(4) }}</td>
+                </tr>
+                <tr>
+                    <td>Minimum</td>
+                    <td>{{ stats.bankrupt_min|round(4) }}</td>
+                    <td>{{ stats.non_bankrupt_min|round(4) }}</td>
+                </tr>
+                <tr>
+                    <td>Maximum</td>
+                    <td>{{ stats.bankrupt_max|round(4) }}</td>
+                    <td>{{ stats.non_bankrupt_max|round(4) }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p><strong>Insight:</strong> 
+            {% if stats.bankrupt_avg < stats.non_bankrupt_avg %}
+            Bankrupt companies have a lower {{ ratio_name }} ({{ stats.bankrupt_avg|round(4) }}) compared to non-bankrupt companies ({{ stats.non_bankrupt_avg|round(4) }}), indicating weaker financial performance.
+            {% else %}
+            Non-bankrupt companies have a lower {{ ratio_name }} ({{ stats.non_bankrupt_avg|round(4) }}) compared to bankrupt companies ({{ stats.bankrupt_avg|round(4) }}), which may suggest other factors influencing bankruptcy.
+            {% endif %}
+            The standard deviation indicates the variability in {{ ratio_name }} values, with higher values suggesting greater inconsistency.
+        </p>
+        {% endfor %}
+        <a href="{{ url_for('list_companies') }}" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+# Temporary files
+*.tmpfile
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# Database file
+data/bankruptcy.db
+
+# Logs
+logs/

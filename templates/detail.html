@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h1>Company {{ company.company_id }} Details</h1>
+    </div>
+    <div class="card-body">
+        <p><strong>Bankruptcy Status:</strong> {{ 'Bankrupt' if company.bankruptcy_status == 1 else 'Non-Bankrupt' }}</p>
+        <p><strong>Year:</strong> {{ company.year }}</p>
+        <p><strong>Industry:</strong> {{ company.industry }}</p>
+        <h3>Financial Ratios</h3>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Ratio Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ratio in ratios %}
+                <tr {% if ratio.ratio_value < 0 or ratio.ratio_value > 1 %}class="table-danger"{% endif %}>
+                    <td>{{ ratio.ratio_name }}</td>
+                    <td>{{ ratio.ratio_value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('list_companies') }}" class="btn btn-outline-secondary">Back to List</a>
+    </div>
+</div>
+{% endblock %}
