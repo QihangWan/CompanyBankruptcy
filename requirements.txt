@@ -1,6 +1,7 @@
 Flask==2.0.1
 Flask-SQLAlchemy==2.5.1
 pandas==2.0.0
+numpy==1.26.4
 gunicorn==20.1.0
 werkzeug>=2.0,<3.0
 SQLAlchemy>=1.2.0,<2.0
